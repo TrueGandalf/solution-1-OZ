@@ -18,6 +18,8 @@ public class ProductListingSingleton
 
     private ProductListingSingleton() { }
 
+    public static void Reset() => ProductListingSingleton.Instance._products.Clear();
+
     public static ProductListingSingleton Instance
     {
         get

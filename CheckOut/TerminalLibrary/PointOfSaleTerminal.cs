@@ -2,7 +2,7 @@
 
 public class PointOfSaleTerminal()
 {
-    private readonly Dictionary<Product, int> _busket = new();
+    public Dictionary<Product, int> Busket { get; private set; } = new();
     private readonly PriceListingSingleton _priceListing = PriceListingSingleton.Instance;
     private readonly ProductListingSingleton _productListing = ProductListingSingleton.Instance;
 
@@ -21,13 +21,13 @@ public class PointOfSaleTerminal()
     {
         var product = _productListing.FindProduct(name);
 
-        if (!_busket.ContainsKey(product))
+        if (!Busket.ContainsKey(product))
         {
-            _busket.Add(product, 1);
+            Busket.Add(product, 1);
         }
         else
         {
-            _busket[product]++;
+            Busket[product]++;
         }
     }
 
@@ -43,9 +43,9 @@ public class PointOfSaleTerminal()
     {
         decimal total = 0;
 
-        foreach (var product in _busket.Keys)
+        foreach (var product in Busket.Keys)
         {
-            total += product.GetTotal(_busket[product]);
+            total += product.GetTotal(Busket[product]);
         }
 
         return (double)total;
