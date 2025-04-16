@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Xml.Linq;
 using TerminalLibrary;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Program started.");
 
 PointOfSaleTerminal terminal = new PointOfSaleTerminal();
 
@@ -21,16 +21,15 @@ terminal.SetPricing("D", volume: 1, price: 0.75);
 //Scan these items in this order: CCCCCCC; Verify the total price is $6.00.
 //Scan these items in this order: ABCD; Verify the total price is $7.25
 
-//terminal.ScanSplitted("AAAABCDAAA");
-//terminal.ScanSplitted("CCCCCCC");
-terminal.ScanSplitted("ABCD");
+terminal.ScanSplitted("AAAABCDAAA");
+Console.WriteLine(terminal.CalculateTotal());
 
-//terminal.ScanSplitted("AAAAAAA");
+PointOfSaleTerminal terminal2 = new PointOfSaleTerminal();
+terminal2.ScanSplitted("CCCCCCC");
+Console.WriteLine(terminal2.CalculateTotal());
 
-//... etc.
+PointOfSaleTerminal terminal3 = new PointOfSaleTerminal();
+terminal3.ScanSplitted("ABCD");
+Console.WriteLine(terminal3.CalculateTotal());
 
-double result = terminal.CalculateTotal();
-
-Console.WriteLine("result:");
-Console.WriteLine(result);
 Console.ReadLine();

@@ -8,15 +8,14 @@ namespace TerminalLibrary;
 
 public class PointOfSaleTerminal()
 {
-    private readonly Dictionary<(string, int), ProductPrice> _productPrices = new();
-    private readonly Dictionary<string, Product> _products = new(); // simple implementation of a lightweight pattern
     private readonly Dictionary<Product, int> _busket = new();
+    private readonly PriceListingSingleton _priceListing = PriceListingSingleton.Instance;
+    private readonly ProductListingSingleton _productListing = ProductListingSingleton.Instance;
 
     public void SetPricing(string name, int volume, decimal price)
     {
-        var product = FindProduct(name);
-        SetProductPrice(name, volume, product, price);
-
+        var product = _productListing.FindProduct(name);
+        _priceListing.SetProductPrice(name, volume, product, price);
     }
 
     public void SetPricing(string name, int volume, double price)
@@ -24,26 +23,9 @@ public class PointOfSaleTerminal()
         SetPricing(name, volume, (decimal)price);
     }
 
-    private void SetProductPrice(string name, int volume, Product product, decimal price)
-    {
-
-        if (_productPrices.TryGetValue((name, volume), out ProductPrice? productPrice))
-        {
-            productPrice = _productPrices[(name, volume)];
-        }
-
-        if (productPrice == null)
-        {
-            _productPrices[(name, volume)] = new ProductPrice(product, volume, price);
-            return;
-        }
-
-        productPrice.UpdatePrice(price);
-    }
-
     public void Scan(string name)
     {
-        var product = FindProduct(name);
+        var product = _productListing.FindProduct(name);
 
         if (!_busket.ContainsKey(product))
         {
@@ -61,15 +43,6 @@ public class PointOfSaleTerminal()
         {
             Scan(new string([a]));
         }
-    }
-
-    private Product FindProduct(string name)
-    {
-        if (_products.TryGetValue(name, out Product? product))
-        {
-            return product;
-        }
-        return _products[name] = new Product(name);
     }
 
     public double CalculateTotal()
