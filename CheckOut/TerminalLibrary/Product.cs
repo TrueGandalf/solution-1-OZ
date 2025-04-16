@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TerminalLibrary;
+﻿namespace TerminalLibrary;
 
 public class Product
 {
@@ -16,6 +10,7 @@ public class Product
 
     // volume, price
     private readonly SortedDictionary<int, ProductPrice> _productPrices = new();
+
     public void AddPricing(ProductPrice productPrice)
     {
         if (!_productPrices.ContainsKey(productPrice.Volume) && _productPrices.Count >= 2)
@@ -23,6 +18,7 @@ public class Product
 
         _productPrices[productPrice.Volume] = productPrice;
     }
+
     public void RemovePricing(int volume)
     {
         _productPrices.Remove(volume);
@@ -34,7 +30,7 @@ public class Product
     {
         if (_productPrices.Count == 0 && !_productPrices.ContainsKey(1))
         {
-            // log this cases properly
+            // log this case properly
             return null;
         }
         var bulkVolume = _productPrices.Keys.Max();

@@ -1,8 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
-using System.Collections.Specialized;
-using System.Xml.Linq;
-using TerminalLibrary;
+﻿using TerminalLibrary;
 
 Console.WriteLine("Program started.");
 

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TerminalLibrary;
+﻿namespace TerminalLibrary;
 
 public class ProductListingSingleton
 {
     private static ProductListingSingleton _instance;
+    // product name, product
     private readonly Dictionary<string, Product> _products = new();
     private static readonly object _lock = new object();
 
@@ -36,10 +31,5 @@ public class ProductListingSingleton
                 return _instance;
             }
         }
-    }
-
-    public void DoWork()
-    {
-        Console.WriteLine("Singleton working...");
     }
 }

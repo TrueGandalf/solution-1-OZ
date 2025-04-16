@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TerminalLibrary;
+﻿namespace TerminalLibrary;
 
 public class PriceListingSingleton
 {
     private static PriceListingSingleton _instance;
-    private readonly Dictionary<(string, int), ProductPrice> _productPrices = new();
+    private readonly Dictionary<(string name, int volume), ProductPrice> _productPrices = new();
     private static readonly object _lock = new object();
 
     public void SetProductPrice(string name, int volume, Product product, decimal price)
@@ -44,10 +38,5 @@ public class PriceListingSingleton
                 return _instance;
             }
         }
-    }
-
-    public void DoWork()
-    {
-        Console.WriteLine("Singleton working...");
     }
 }
